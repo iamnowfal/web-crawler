@@ -1,0 +1,31 @@
+.form-style{
+    max-width:640px;
+    margin: 0 auto;
+    background-color: #E9E9E9;
+    border: 1 solid #F9F9F9;
+    border-radius: 8px;
+    padding: 20px;
+
+}
+
+.search-form{
+    width:80%;
+    margin: 0 auto;
+}
+
+#search{
+    width:100%;
+}
+
+.search-engine{
+    float:right;
+    width:30%;
+}
+
+.engine{
+    padding:10px;
+}
+
+.search-button{
+    margin-left:1%;
+}
