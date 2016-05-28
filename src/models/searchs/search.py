@@ -1,5 +1,4 @@
-import string
-
+import src.models.searchs.error as SearchError
 import requests
 from bs4 import BeautifulSoup
 import uuid
@@ -23,6 +22,10 @@ class Search:
         address_results = []
         rate_results = []
         page = 0
+
+        if search_terms is None or place is None:
+            raise SearchError.SearchTermsEmptyError("Search terms and search place cannot be empty")
+
         while page < SearchConstants.MAX_PAGE:
             url = "http://www.truelocal.com.au/search/{}/{}".format(search_terms, place)
             source_code = requests.get(url)
