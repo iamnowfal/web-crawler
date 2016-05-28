@@ -9,17 +9,16 @@
 }
 
 .search-form{
-    width:80%;
+    width:70%;
     margin: 0 auto;
 }
 
 #search{
-    width:100%;
+    width:45%;
 }
 
-.search-engine{
-    float:right;
-    width:30%;
+#place{
+    width:45%;
 }
 
 .engine{
@@ -28,4 +27,19 @@
 
 .search-button{
     margin-left:1%;
+}
+
+.search-item{
+    border: 1px solid #f9f9f9;
+    background-color: #e9e9e9;
+    padding: 10px;
+    margin-bottom:1%;
+}
+
+#search-group{
+    margin-top:3%;
+}
+
+.ship-price{
+    margin-left:5%
 }
