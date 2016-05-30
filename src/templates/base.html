@@ -18,8 +18,12 @@
             <a class="navbar-brand" href="/">Fancy Web Crawler</a>
         </div>
 
+
         <div id="navbar" class="navbar-collapse collapse">
             {% if session['username'] %}
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('favourites.show_favourites', username=session['username']) }}">My Favourite</a></li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{ url_for('users.user_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
                 </ul>

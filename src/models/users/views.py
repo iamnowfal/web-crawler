@@ -44,27 +44,19 @@ def search(search_term, place):
 
     if request.method == 'GET':
         titles, tels, urls, addresses, rates = Search.search(search_term, place)
-        try:
-            page = int(request.args.get('page', 1))
-        except ValueError:
-            page = 1
         i = 0
-
         while i < len(titles):
-
             search = Search(title=titles[i], tel=tels[i], url=urls[i],
-                            address=addresses[i], rates=rates[i], username=session['username'])
+                            address=addresses[i], rates=rates[i],
+                            username=session['username'], search_term=search_term, place=place)
             try:
                 search.save_to_mongo()
             except:
                 pass
-
             i+=1
 
         search_results = Search.find_by_username(session['username'])
-
-        pagination = Pagination(page=page, total=len(search_results), search=search, per_page=10, record_name='search_results')
-        return render_template('/users/search_results.html', pagination=pagination,
+        return render_template('/users/search_results.html',
                                search_results=search_results, search_term=search_term, place=place)
 
     if request.method == 'POST':
@@ -77,7 +69,21 @@ def search(search_term, place):
 
 
 # Logout
-@ user_blueprint.route('/logout')
+@user_blueprint.route('/logout')
 def user_logout():
     session['username'] = None
     return redirect(url_for('home_page'))
+
+@user_blueprint.route('/add/<string:title>/<string:search_term>/<string:place>')
+def active_favourite(title, search_term, place):
+    Search.find_by_title(title).activate()
+    search_results = Search.find_by_search(search_term, place)
+    return render_template('/users/search_results.html',search_results=search_results, search_term=search_term,
+                           place=place)
+
+@user_blueprint.route('/remove/<string:title>/<string:search_term>/<string:place>')
+def deactive_favourite(title, search_term, place):
+    Search.find_by_title(title).deactivate()
+    search_results = Search.find_by_search(search_term, place)
+    return render_template('/users/search_results.html',search_results=search_results, search_term=search_term,
+                           place=place)

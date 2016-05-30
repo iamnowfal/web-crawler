@@ -7,12 +7,14 @@ from src.common.database import Database
 
 class Search:
 
-    def __init__(self, title, tel, address, url, rates, active=False, username=None, _id=None):
+    def __init__(self, title, tel, address, url, rates, search_term, place, active=False, username=None, _id=None):
         self.title = title
         self.address = address
         self.url = url
         self.tel = tel
         self.rates = rates
+        self.search_term = search_term
+        self.place = place
         self.active = active
         self.username = username
         self._id = uuid.uuid4().hex if _id is None else _id
@@ -24,6 +26,8 @@ class Search:
             'address':self.address,
             'url':self.url,
             'rates':self.rates,
+            'search_term':self.search_term,
+            'place':self.place,
             'active':self.active,
             'username':self.username,
             '_id':self._id
@@ -31,23 +35,36 @@ class Search:
         }
 
     def save_to_mongo(self):
-        Database.update(SearchConstants.COLLECTION, {'url':self.url}, self.json())
+        Database.update(SearchConstants.COLLECTION, {'title':self.title}, self.json())
 
     @classmethod
     def find_by_username(cls, username):
         return [cls(**elm) for elm in Database.find(SearchConstants.COLLECTION, {'username':username})]
 
     @classmethod
+    def find_by_title(cls, title):
+        return cls(**Database.find_one(SearchConstants.COLLECTION, {'title':title}))
+
+    @classmethod
     def find_by_url(cls, url):
         return [cls(**elm) for elm in Database.find(SearchConstants.COLLECTION, {'url':url})]
 
     @classmethod
-    def get_by_active(cls, active):
-        return [cls(**elm) for elm in Database.find(SearchConstants.COLLECTION, {'active':active})]
+    def find_by_username_active(cls, username):
+        return [cls(**elm) for elm in Database.find(SearchConstants.COLLECTION, {'username':username,'active':True})]
 
-    def delete_favourite(self):
+    @classmethod
+    def find_by_search(cls, search_term, place):
+        return [cls(**elm) for elm in Database.find(SearchConstants.COLLECTION, {'search_term':search_term,
+                                                                                 'place':place})]
+
+    def deactivate(self):
+        self.active = False
+        self.save_to_mongo()
+
+    def activate(self):
         self.active = True
-
+        self.save_to_mongo()
 
     @staticmethod
     def search(search_terms, place):
