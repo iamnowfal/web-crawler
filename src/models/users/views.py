@@ -2,7 +2,7 @@ from flask import Blueprint, request, render_template, redirect, url_for, sessio
 from src.models.users.user import User
 import src.models.users.error as UserError
 from src.models.searchs.search import Search
-from src.models.favourites.favourite import Favourite
+from flask_paginate import Pagination
 
 user_blueprint = Blueprint('users', __name__)
 
@@ -40,13 +40,32 @@ def user_register():
 # User search page
 @user_blueprint.route('/<string:search_term>/<string:place>', methods=['POST', 'GET'])
 def search(search_term, place):
-
+    search = False
 
     if request.method == 'GET':
         titles, tels, urls, addresses, rates = Search.search(search_term, place)
-        return render_template('/users/search_results.html',
-                           titles=titles, search_term=search_term, tels=tels, place=place,
-                           urls=urls, addresses=addresses, rates=rates)
+        try:
+            page = int(request.args.get('page', 1))
+        except ValueError:
+            page = 1
+        i = 0
+
+        while i < len(titles):
+
+            search = Search(title=titles[i], tel=tels[i], url=urls[i],
+                            address=addresses[i], rates=rates[i], username=session['username'])
+            try:
+                search.save_to_mongo()
+            except:
+                pass
+
+            i+=1
+
+        search_results = Search.find_by_username(session['username'])
+
+        pagination = Pagination(page=page, total=len(search_results), search=search, per_page=10, record_name='search_results')
+        return render_template('/users/search_results.html', pagination=pagination,
+                               search_results=search_results, search_term=search_term, place=place)
 
     if request.method == 'POST':
         search_term = request.form['search']

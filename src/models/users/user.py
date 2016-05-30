@@ -3,10 +3,11 @@ from src.common.database import Database
 import src.models.users.constants as UserConstant
 import src.models.users.error as UserError
 from src.common.utils import Utils
+from src.models.searchs.search import Search
 
 class User:
 
-    def __init__(self, username, password, _id=None):
+    def __init__(self, username, password,  _id=None):
         self.username = username
         self.password = password
         self._id = uuid.uuid4().hex if _id is None else _id
@@ -44,4 +45,4 @@ class User:
 
     @classmethod
     def get_by_username(cls, username):
-        return cls(Database.find_one(UserConstant.COLLECTION, {'username':username}))
+        return cls(**Database.find_one(UserConstant.COLLECTION, {'username':username}))

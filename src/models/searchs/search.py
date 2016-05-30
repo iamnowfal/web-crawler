@@ -7,29 +7,47 @@ from src.common.database import Database
 
 class Search:
 
-    def __init__(self, title, tel, address, url, rates, username=None, _id=None):
+    def __init__(self, title, tel, address, url, rates, active=False, username=None, _id=None):
         self.title = title
         self.address = address
         self.url = url
         self.tel = tel
         self.rates = rates
+        self.active = active
         self.username = username
         self._id = uuid.uuid4().hex if _id is None else _id
 
     def json(self):
         return {
             'title':self.title,
-            'tels':self.tel,
+            'tel':self.tel,
             'address':self.address,
             'url':self.url,
             'rates':self.rates,
+            'active':self.active,
             'username':self.username,
             '_id':self._id
 
         }
 
     def save_to_mongo(self):
-        Database.insert(SearchConstants.COLLECTION, self.json())
+        Database.update(SearchConstants.COLLECTION, {'url':self.url}, self.json())
+
+    @classmethod
+    def find_by_username(cls, username):
+        return [cls(**elm) for elm in Database.find(SearchConstants.COLLECTION, {'username':username})]
+
+    @classmethod
+    def find_by_url(cls, url):
+        return [cls(**elm) for elm in Database.find(SearchConstants.COLLECTION, {'url':url})]
+
+    @classmethod
+    def get_by_active(cls, active):
+        return [cls(**elm) for elm in Database.find(SearchConstants.COLLECTION, {'active':active})]
+
+    def delete_favourite(self):
+        self.active = True
+
 
     @staticmethod
     def search(search_terms, place):
