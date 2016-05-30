@@ -1,2 +1,2 @@
-MAX_PAGE=1
+MAX_PAGE=3
 COLLECTION = 'search'

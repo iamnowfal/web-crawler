@@ -38,13 +38,13 @@ class Search:
         tels_results = []
         address_results = []
         rate_results = []
-        page = 0
+        page = 1
 
         if search_terms is None or place is None:
             raise SearchError.SearchTermsEmptyError("Search terms and search place cannot be empty")
 
-        while page < SearchConstants.MAX_PAGE:
-            url = "http://www.truelocal.com.au/search/{}/{}".format(search_terms, place)
+        while page <= SearchConstants.MAX_PAGE:
+            url = "http://www.truelocal.com.au/search/{}/{}/{}".format(search_terms, place, page)
             source_code = requests.get(url)
             plain_text = source_code.text
             soup = BeautifulSoup(plain_text, "html.parser")
