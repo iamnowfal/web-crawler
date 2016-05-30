@@ -55,7 +55,7 @@ def search(search_term, place):
                 pass
             i+=1
 
-        search_results = Search.find_by_username(session['username'])
+        search_results = Search.find_by_search(search_term,place)
         return render_template('/users/search_results.html',
                                search_results=search_results, search_term=search_term, place=place)
 
