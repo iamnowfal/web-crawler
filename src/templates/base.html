@@ -23,7 +23,7 @@
             {% if session['username'] %}
 
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('favourites.show_favourites', username=session['username']) }}">
+                    <li><a href="{{ url_for('users.show_favourites', username=session['username']) }}">
                         <span class="glyphicon glyphicon-home"></span> My Favourite</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

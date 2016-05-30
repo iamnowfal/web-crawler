@@ -29,10 +29,8 @@ def home_page():
         return render_template('/home.html')
 
 from src.models.users.views import user_blueprint
-from src.models.favourites.views import favourite_blueprint
 from src.models.searchs.views import search_blueprint
 app.register_blueprint(user_blueprint, url_prefix='/users')
 app.register_blueprint(search_blueprint, url_prefix='/search')
-app.register_blueprint(favourite_blueprint, url_prefix='/favourites')
 
 
