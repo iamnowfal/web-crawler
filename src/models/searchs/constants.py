@@ -1,1 +1,2 @@
 MAX_PAGE=1
+COLLECTION = 'search'

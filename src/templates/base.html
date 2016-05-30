@@ -20,11 +20,6 @@
 
         <div id="navbar" class="navbar-collapse collapse">
             {% if session['username'] %}
-                <ul class="nav navbar-nav">
-                    <li><a href="">Favourite Results</a></li>
-                </ul>
-            {% endif %}
-            {% if session['username'] %}
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{{ url_for('users.user_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
                 </ul>

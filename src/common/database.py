@@ -8,7 +8,7 @@ class Database:
     @staticmethod
     def initialise():
         client = pymongo.MongoClient(Database.URI)
-        Database.DATABASE = 'webcrawler'
+        Database.DATABASE = client['webcrawler']
 
     @staticmethod
     def insert(collection, data):
@@ -21,3 +21,11 @@ class Database:
     @staticmethod
     def find_one(collection, query):
         return Database.DATABASE[collection].find_one(query)
+
+    @staticmethod
+    def remove(collection, query):
+        return Database.DATABASE[collection].remove(query)
+
+    @staticmethod
+    def update(collection, query, data):
+        return Database.DATABASE[collection].update(query, data, upsert=True)

@@ -3,16 +3,33 @@ import requests
 from bs4 import BeautifulSoup
 import uuid
 import src.models.searchs.constants as SearchConstants
+from src.common.database import Database
 
 class Search:
 
-    def __init__(self, title, price, ship_price, url, _id=None):
+    def __init__(self, title, tel, address, url, rates, username=None, _id=None):
         self.title = title
-        self.price = price
-        self.ship_price = ship_price
+        self.address = address
         self.url = url
+        self.tel = tel
+        self.rates = rates
+        self.username = username
         self._id = uuid.uuid4().hex if _id is None else _id
 
+    def json(self):
+        return {
+            'title':self.title,
+            'tels':self.tel,
+            'address':self.address,
+            'url':self.url,
+            'rates':self.rates,
+            'username':self.username,
+            '_id':self._id
+
+        }
+
+    def save_to_mongo(self):
+        Database.insert(SearchConstants.COLLECTION, self.json())
 
     @staticmethod
     def search(search_terms, place):

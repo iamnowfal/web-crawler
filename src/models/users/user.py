@@ -42,3 +42,6 @@ class User:
 
         return True
 
+    @classmethod
+    def get_by_username(cls, username):
+        return cls(Database.find_one(UserConstant.COLLECTION, {'username':username}))
