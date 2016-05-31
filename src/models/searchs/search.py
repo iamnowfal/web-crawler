@@ -86,10 +86,10 @@ class Search:
             g_data = soup.find_all("div", {"class" : "search-result"})
 
             for item in g_data:
-                titles=item.find_all("span", {"class":"name"})[0].text
-                tels=item.find_all("a")[1].text
+                titles=item.find_all("span", {"class":"name"})[0].text.strip()
+                tels=item.find_all("a")[1].text.strip()
                 urls=item.find_all("span", {"class":"name"})[0].find_all("a")
-                address=item.find_all("span", {"class":"address secondary no-mobile"})[0].text
+                address=item.find_all("span", {"class":"address secondary no-mobile"})[0].text.strip()
                 rates=item.find_all("span", {"class":"ui-rating ui-rating-disabled ui-rating-star-small"})
 
                 for rates in rates:
