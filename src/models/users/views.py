@@ -40,7 +40,6 @@ def user_register():
 # User search page
 @user_blueprint.route('/<string:search_term>/<string:place>', methods=['POST', 'GET'])
 def search(search_term, place):
-    search = False
 
     if request.method == 'GET':
         titles, tels, urls, addresses, rates = Search.search(search_term, place)
@@ -78,8 +77,7 @@ def user_logout():
 def active_favourite(title, search_term, place):
     Search.find_by_title(title).activate()
     search_results = Search.find_by_search(search_term, place)
-    return render_template('/users/search_results.html',search_results=search_results, search_term=search_term,
-                           place=place)
+    return redirect(url_for('.search', search_term=search_term, place=place))
 
 @user_blueprint.route('/remove/<string:title>/<string:search_term>/<string:place>')
 def deactive_favourite(title, search_term, place):
