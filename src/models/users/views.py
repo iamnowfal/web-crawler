@@ -82,8 +82,8 @@ def active_favourite(title, search_term, place):
 @user_blueprint.route('/remove/<string:url>/<string:search_term>/<string:place>')
 def deactive_favourite(url, search_term, place):
     Search.find_by_url(url).deactivate()
-    search_results = Search.find_by_search(search_term, place)
-    return redirect(url_for('.search', search_term=search_term, place=place))
+    favourites = Search.find_by_username_active(session['username'])
+    return render_template('/users/show_favourites.html', favourites=favourites)
 
 @user_blueprint.route('/favourite/<string:username>')
 def show_favourites(username):
