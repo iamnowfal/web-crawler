@@ -80,8 +80,8 @@ def active_favourite(title, search_term, place):
     return redirect(url_for('.search', search_term=search_term, place=place))
 
 @user_blueprint.route('/remove/<string:title>/<string:search_term>/<string:place>')
-def deactive_favourite(title, search_term, place):
-    Search.find_by_title(title).deactivate()
+def deactive_favourite(url, search_term, place):
+    Search.find_by_url(url).deactivate()
     search_results = Search.find_by_search(search_term, place)
     return redirect(url_for('.search', search_term=search_term, place=place))
 

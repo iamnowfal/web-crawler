@@ -13,6 +13,8 @@
 
             <p>Address: {{ favourites.address }}</p>
             <p>Reviews: {{ favourites.rates }} points</p>
+            <a href="{{ url_for('users.deactive_favourite', url=favourites.title, search_term=favourites.search_term,
+                place=favourites.place) }}" class="btn btn-danger" role="button">Remove Favourite</a>
 
         </div>
 
