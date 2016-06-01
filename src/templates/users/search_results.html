@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+<form class="form-inline" method="post">
+    <div class="form-group search-form">
+
+        <span class="glyphicon glyphicon-search"></span> <input type="text" class="form-control" id="search"
+                                                                name="search" placeholder="Cafe">
+
+        <span class="glyphicon glyphicon-flag"></span> <input type="text" class="form-control" id="place"
+                                                              name="place" placeholder="Melbourne">
+
+    </div>
+    <button type="submit" class="btn btn-default search-button">Search</button>
+</form>
+<div class="panel" id="search-group">
+    <div class="panel-body">
+        <h3>Best match for {{ search_term }} in {{ place }}</h3>
+        {% for search in search_results: %}
+
+        <div class="search-item">
+            <h4>{{ search.title }}</h4>
+
+            <p><a href="http://www.truelocal.com.au/{{ search.url }}" target="_blank">View Detail</a></p>
+            <p>Contact No. : {{ search.tel }}</p>
+
+            <p>Address: {{ search.address }}</p>
+            <p>Reviews: {{ search.rates }} points</p>
+            {% if not search.active  %}
+                <a href="{{ url_for('users.active_favourite', title=search.title, search_term=search_term,
+                place=place) }}" class="btn btn-success" role="button">Add Favourite</a>
+            {% else %}
+                <a href="{{ url_for('users.deactive_favourite', title=search.title, search_term=search_term,
+                place=place) }}" class="btn btn-danger" role="button">Remove Favourite</a>
+            {% endif %}
+        </div>
+
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

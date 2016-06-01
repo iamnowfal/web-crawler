@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="panel" id="search-group">
+    <div class="panel-body">
+        <h3>Favourite List <small>for {{ session['username'] }}</small></h3>
+        {% for favourites in favourites: %}
+
+        <div class="search-item">
+            <h4>{{ favourites.title }}</h4>
+
+            <p><a href="http://www.truelocal.com.au/{{ favourites.url }}" target="_blank">View Detail</a></p>
+            <p>Contact No. : {{ favourites.tel }}</p>
+
+            <p>Address: {{ favourites.address }}</p>
+            <p>Reviews: {{ favourites.rates }} points</p>
+
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
