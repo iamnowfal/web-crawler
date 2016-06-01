@@ -10,13 +10,14 @@ Technology stack: MongoDB, Python (Flask & Jinja2), HTML/CSS/Bootstrap.
 
 ## Installation
 
-1. Clone the repository (going to a terminal and run `git clone https://github.com/kingsleywang2013/alert-my-wishlist.git`.
-2. Create a virtual environment for the repository (run `virtualenv --python=python3.5 venv`)
-3. Run the Flask server by executing `venv/bin/python web-crawler/src/run.py`.
+1. Come to https://github.com/kingsleywang2013/web-crawler and choose branch 'run_local'.
+2. Clone the repository (going to a terminal and run `git clone https://github.com/kingsleywang2013/web-crawler.git`.
+3. Create a virtual environment for the repository (run `virtualenv --python=python3.5 venv`)
+4. Run the Flask server by executing `venv/bin/python web-crawler/src/run.py`.
 
 ## Experience
 
-The applicatin has been deployed on Heroku cloud application platform. You can come to see the demo through the following url
+The applicatin has also been deployed on Heroku cloud application platform. You can come to see the demo through the following url
 https://fancy-web-crawler.herokuapp.com/
 
 ![Home Screen](screenshots/home.png)
