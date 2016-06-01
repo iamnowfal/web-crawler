@@ -22,7 +22,7 @@ def home_page():
             return redirect(url_for('users.search', search_term=search_term, place=place))
         else:
             return redirect(url_for('search.index', search_term=search_term, place=place))
-        return render_template('/home.html')
+    return render_template('/home.html')
 
 from src.models.users.views import user_blueprint
 from src.models.searchs.views import search_blueprint
