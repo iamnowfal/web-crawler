@@ -20,6 +20,12 @@ Technology stack: MongoDB, Python (Flask & Jinja2), HTML/CSS/Bootstrap.
 The applicatin has also been deployed on Heroku cloud application platform. You can come to see the demo through the following url
 https://fancy-web-crawler.herokuapp.com/
 
+Test login
+
+username: king
+
+password: 123
+
 ![Home Screen](screenshots/home.png)
 
 ![Sign up Screen](screenshots/signup.png)
