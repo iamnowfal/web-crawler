@@ -14,6 +14,7 @@ Technology stack: MongoDB, Python (Flask & Jinja2), HTML/CSS/Bootstrap.
 2. Clone the repository (going to a terminal and run `git clone https://github.com/kingsleywang2013/web-crawler.git`.
 3. Create a virtual environment for the repository (run `virtualenv --python=python3.5 venv`)
 4. Run the Flask server by executing `venv/bin/python web-crawler/src/run.py`.
+5. Input 'http://127.0.0.1:4880/' in your browser
 
 ## Experience
 
